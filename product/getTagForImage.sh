@@ -7,7 +7,7 @@ usage () {
 Usage: 
   $0 [image1] [image2] [image3] ... [-t show container names, sorted]
 Examples: 
-  $0 quay.io/devspaces/devspaces-rhel8-operator:3.0-1 registry.redhat.io/devspaces/server-rhel8:3.0 devspaces-operator-bundle-container-3.0-2
+  $0 quay.io/redhat_na_ssa/devspaces-rhel8-operator:3.0-1 registry.redhat.io/devspaces/server-rhel8:3.0 devspaces-operator-bundle-container-3.0-2
   $0 \$(cat LATEST_IMAGES) -s
 "
 	exit

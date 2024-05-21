@@ -4889,7 +4889,7 @@ REPO_PATH="2.9-3 2.9 registry-proxy.engineering.redhat.com/rh-osbs/codeready-wor
 [Pipeline] sh
 + cat /mnt/hudson_workspace/workspace/CRW_CI/get-sources-rhpkg-container-build_2.x/build_desc.txt
 [Pipeline] echo
-<a href='https://brewweb.engineering.redhat.com/brew/taskinfo?taskID=36779676'>Build 36779676</a> : 2.9-3 2.9 <a href="https://quay.io/devspaces/configbump-rhel8:2.9-3">quay.io/devspaces/configbump-rhel8:2.9-3</a> 
+<a href='https://brewweb.engineering.redhat.com/brew/taskinfo?taskID=36779676'>Build 36779676</a> : 2.9-3 2.9 <a href="https://quay.io/redhat_na_ssa/configbump-rhel8:2.9-3">quay.io/redhat_na_ssa/configbump-rhel8:2.9-3</a> 
 [Pipeline] }
 [Pipeline] // withCredentials
 [Pipeline] }

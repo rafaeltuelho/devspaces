@@ -183,9 +183,9 @@ ${ERRORS_FOUND}
 TASK_URL="$(grep --text "Task info: https://brewweb.engineering.redhat.com/brew/taskinfo?taskID=" "${LOGFILE}" | grep -v grep | sed -e "s#Task info: ##" | head -1 || true)"
 TASK_ID="${TASK_URL##*=}"
 BUILD_DESC=$(echo $REPO_PATH | sed -r \
-    -e 's#registry-proxy.engineering.redhat.com/rh-osbs/devspaces-#quay.io/devspaces/#g' \
-    -e 's#(quay.io/devspaces/.+-rhel8:[0-9.-]+) *#<a href="https://\1">\1</a> #g' \
-    -e 's#(quay.io/devspaces)/(operator|operator-bundle):([0-9.-]+) *#<a href="https://\1/devspaces-3-rhel-8-\2:\3">\1/devspaces-3-rhel-8-\2:\3</a> #g'
+    -e 's#registry-proxy.engineering.redhat.com/rh-osbs/devspaces-#quay.io/redhat_na_ssa/#g' \
+    -e 's#(quay.io/redhat_na_ssa/.+-rhel8:[0-9.-]+) *#<a href="https://\1">\1</a> #g' \
+    -e 's#(quay.io/redhat_na_ssa)/(operator|operator-bundle):([0-9.-]+) *#<a href="https://\1/devspaces-3-rhel-8-\2:\3">\1/devspaces-3-rhel-8-\2:\3</a> #g'
 )
 BUILD_RESULT="SUCCESS"
 if [[ ${BUILD_DESC} == *"UNKNOWN"* ]]; then BUILD_RESULT="UNSTABLE"; fi

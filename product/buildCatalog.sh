@@ -34,7 +34,7 @@ Options:
   -h, --help                 : Show this help
 
 Example:
-  $0 -t quay.io/devspaces/iib:226720
+  $0 -t quay.io/redhat_na_ssa/iib:226720
 
 EOF
 }
@@ -78,7 +78,7 @@ command -v jq >/dev/null 2>&1     || which jq >/dev/null 2>&1     || { echo "jq 
 
 # shellcheck disable=SC2086
 if [ -z $targetIndexImage ]; then
-  targetIndexImage="quay.io/devspaces/$(date +%s)"
+  targetIndexImage="quay.io/redhat_na_ssa/$(date +%s)"
   echo "No target image specified: using ${targetIndexImage}"
 fi
 

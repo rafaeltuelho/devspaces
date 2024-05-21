@@ -41,7 +41,7 @@ Options:
 
 Examples:
   $0 brew.registry.redhat.io/rh-osbs/iib-pub-pending:v4.12 --brew --quay --filter 'dashboard|operator|registry-rhel|udi' --quiet
-  $0 quay.io/devspaces/iib:3.5-v4.13-x86_64  --quay --filter 'dashboard|operator|registry-rhel' -qq
+  $0 quay.io/redhat_na_ssa/iib:3.5-v4.13-x86_64  --quay --filter 'dashboard|operator|registry-rhel' -qq
 "
 }
 
@@ -80,7 +80,7 @@ for IIB_IMAGE in $IMAGES; do
             opm migrate index.db ../configs
         fi
         popd >/dev/null || exit 1
-    elif [[ -f configs/devspaces/channel.json ]]; then # for quay.io/devspaces/iib 
+    elif [[ -f configs/devspaces/channel.json ]]; then # for quay.io/redhat_na_ssa/iib 
         catalogJson="configs/devspaces/channel.json"
     fi
     if [[ ! -f $catalogJson ]]; then echo "[ERROR] Could not read $(pwd)/$catalogJson ! Must exit."; exit 1; fi
@@ -89,7 +89,7 @@ for IIB_IMAGE in $IMAGES; do
     #    "schema": "olm.bundle",
     #    "name": "devspacesoperator.v3.4.0",
     bundle=$(grep '"schema": "olm.bundle"' -A1 $catalogJson | tail -1 | sed -r -e 's@.+name": "(.+)".*@\1@')
-    # alternative query for quay.io/devspaces/iib containers
+    # alternative query for quay.io/redhat_na_ssa/iib containers
     if [[ ! $bundle ]]; then
         bundle=$(grep '"name":' $catalogJson | tail -1 | sed -r -e 's@.+name": "(.+)".*@\1@')
     fi
@@ -97,13 +97,13 @@ for IIB_IMAGE in $IMAGES; do
     if [[ $QUIETER != "true" ]]; then echo "[INFO] Bundle Version: $bundle"; fi
     #  "image": "registry.stage.redhat.io/devspaces/devspaces-operator-bundle@sha256:481491c923cb9b432b23f4bd6f64599d82180b2ed1c7f558bc1f8335256c64e3",
     imageWithSHA=$(grep "${bundle}" -A2 $catalogJson | grep image | sed -r -e 's@.+image": "(.+)".+@\1@')
-    # alternative query for quay.io/devspaces/iib containers
+    # alternative query for quay.io/redhat_na_ssa/iib containers
     if [[ ! $imageWithSHA ]]; then # instead of channel.json or catalog.json, use devspacesoperator.v3.5.0.bundle.json
         imageWithSHA=$(grep '"schema": "olm.bundle"' -A3 ${catalogJson/channel.json/${bundle}.bundle.json} | tail -1 | sed -r -e 's@.+image": "(.+)".+@\1@')
     fi
 
     if [[ $QUIETER != "true" ]]; then echo "[INFO] Bundle Image SHA: $imageWithSHA"; fi
-    # Got quay.io/devspaces/devspaces-operator-bundle:3.4-170
+    # Got quay.io/redhat_na_ssa/devspaces-operator-bundle:3.4-170
     bundleContainers=$("${SCRIPTPATH}"/getTagForSHA.sh "${imageWithSHA}" ${QUAY} "${QUIET}")
     # extract the last value or the failure (tokenize to remove "For..." and "Got..." if we're not in quiet mode)
     bundleContainer=""

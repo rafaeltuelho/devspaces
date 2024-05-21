@@ -65,4 +65,4 @@ jobs:
 
       - name: push plugin registry image
         run: |
-          docker push quay.io/devspaces/pluginregistry-rhel8:next-gh-action
+          docker push quay.io/redhat_na_ssa/pluginregistry-rhel8:next-gh-action

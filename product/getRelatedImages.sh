@@ -56,7 +56,7 @@ if [[ $VERSION == "7."* ]] || [[ $VERSION == "8."* ]]; then # che
     yq -r '.spec.relatedImages[].image' $TMPDIR/che.csv.yaml | sort -uV
 elif [[ $VERSION == "3."* ]] || [[ $VERSION == "4."* ]]; then # ds
     rm -fr $TMPDIR/quay.io-*-devspaces-operator-bundle-${VERSION}-* || true
-    ${EXTRACT_CMD} quay.io/devspaces/devspaces-operator-bundle:${VERSION} 
+    ${EXTRACT_CMD} quay.io/redhat_na_ssa/devspaces-operator-bundle:${VERSION} 
     CSV=$(find $TMPDIR/quay.io-*-devspaces-operator-bundle-${VERSION}-*/manifests/ -name "*csv.yaml")
     if [[ $QUIET == "" ]]; then echo "[INFO] Checking CSV: $CSV"; fi
     yq -r '.spec.relatedImages[].image' "${CSV}" | sort -uV

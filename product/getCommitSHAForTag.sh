@@ -10,7 +10,7 @@
 
 # For a given tag, produce a link to the commit that was used for that tag.
 # 
-# Eg., for quay.io/devspaces/udi:3.y-1 get https://pkgs.devel.redhat.com/cgit/containers/devspaces-udi/commit?id=53306c3f99d3b35d4bdeb22b5ef2081e322db7f8
+# Eg., for quay.io/redhat_na_ssa/udi:3.y-1 get https://pkgs.devel.redhat.com/cgit/containers/devspaces-udi/commit?id=53306c3f99d3b35d4bdeb22b5ef2081e322db7f8
 
 if [[ ! -x /usr/bin/brew ]]; then 
 	echo "Brew is required. Please install brewkoji rpm from one of these repos:";
@@ -21,7 +21,7 @@ fi
 usage () {
 	echo "
 Usage: for 1 or more containers in quay or Pulp, compute the NVR, Build URL, and Source commit for that build. eg.,
-  $0  quay.io/devspaces/udi-rhel8:3.y-1 quay.io/devspaces/udi-rhel8:3.y-1 ...
+  $0  quay.io/redhat_na_ssa/udi-rhel8:3.y-1 quay.io/redhat_na_ssa/udi-rhel8:3.y-1 ...
   $0  registry-proxy.engineering.redhat.com/rh-osbs/devspaces-udi-rhel8 -j 3.y -n 2      | show last 2 tags
 "
 exit

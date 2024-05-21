@@ -185,11 +185,11 @@ for OCP_VER in ${OCP_VERSIONS}; do
     # NOTE: this is NOT OCP server arch, but the arch of the local build machine!
     # must build on multiple arches to get per-arch IIBs
     if [[ $LATEST_DWO_IIB_NUM ]]; then
-        LATEST_IIB_QUAY="quay.io/devspaces/iib:${DS_VERSION}-${OCP_VER}-${LATEST_IIB_NUM}-${LATEST_DWO_IIB_NUM}-$(uname -m)"
+        LATEST_IIB_QUAY="quay.io/redhat_na_ssa/iib:${DS_VERSION}-${OCP_VER}-${LATEST_IIB_NUM}-${LATEST_DWO_IIB_NUM}-$(uname -m)"
         CATALOG_DIR=$(mktemp -d --suffix "-${DS_VERSION}-${OCP_VER}-${LATEST_IIB_NUM}-${LATEST_DWO_IIB_NUM}-$(uname -m)")
     else
          # use simpler tag when no DWO available
-        LATEST_IIB_QUAY="quay.io/devspaces/iib:${DS_VERSION}-${OCP_VER}-${LATEST_IIB_NUM}-$(uname -m)"
+        LATEST_IIB_QUAY="quay.io/redhat_na_ssa/iib:${DS_VERSION}-${OCP_VER}-${LATEST_IIB_NUM}-$(uname -m)"
         CATALOG_DIR=$(mktemp -d --suffix "-${DS_VERSION}-${OCP_VER}-${LATEST_IIB_NUM}-$(uname -m)")
     fi 
 
@@ -259,17 +259,17 @@ for OCP_VER in ${OCP_VERSIONS}; do
 
     for qtag in ${ALL_TAGS}; do
         # shellcheck disable=SC2086
-        if [[ $(skopeo --insecure-policy inspect docker://quay.io/devspaces/iib:${qtag} 2>&1) == *"Error"* ]] || [[ ${PUSHTOQUAYFORCE_LOCAL} -eq 1 ]]; then
-            CMD="skopeo --insecure-policy copy --all docker://${LATEST_IIB_QUAY} docker://quay.io/devspaces/iib:${qtag}"
+        if [[ $(skopeo --insecure-policy inspect docker://quay.io/redhat_na_ssa/iib:${qtag} 2>&1) == *"Error"* ]] || [[ ${PUSHTOQUAYFORCE_LOCAL} -eq 1 ]]; then
+            CMD="skopeo --insecure-policy copy --all docker://${LATEST_IIB_QUAY} docker://quay.io/redhat_na_ssa/iib:${qtag}"
             if [[ $VERBOSE -eq 1 ]]; then
                 echo $CMD
                 if [[ "$PUSH" == "true" ]]; then $CMD; fi
             else
                 if [[ "$PUSH" == "true" ]]; then $CMD -q; fi
-                echo "[IMG] quay.io/devspaces/iib:${qtag}"
+                echo "[IMG] quay.io/redhat_na_ssa/iib:${qtag}"
             fi
         else
-            if [[ $VERBOSEFLAG == "-v" ]]; then echo "Copy quay.io/devspaces/iib:${qtag} - already exists, nothing to do"; fi
+            if [[ $VERBOSEFLAG == "-v" ]]; then echo "Copy quay.io/redhat_na_ssa/iib:${qtag} - already exists, nothing to do"; fi
         fi
     done
 

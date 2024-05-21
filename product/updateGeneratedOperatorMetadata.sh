@@ -22,7 +22,7 @@ usage ()
 SCRIPT=$(readlink -f "$0"); SCRIPTPATH=$(dirname "$SCRIPT")
 
 DEST_DIR=devspaces-operator-bundle-generated 
-SOURCE_CONTAINER=quay.io/devspaces/devspaces-operator-bundle
+SOURCE_CONTAINER=quay.io/redhat_na_ssa/devspaces-operator-bundle
 # commandline args
 while [[ "$#" -gt 0 ]]; do
   case $1 in

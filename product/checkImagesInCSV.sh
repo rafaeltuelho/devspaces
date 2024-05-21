@@ -55,7 +55,7 @@ Options:
   -qq, --quieter       Quieter output: omit everything but related images
 
 Examples:
-  $0 quay.io/devspaces/devspaces-operator-bundle:$PROD_VER -y -i 'dashboard|operator|registry-rhel|udi'
+  $0 quay.io/redhat_na_ssa/devspaces-operator-bundle:$PROD_VER -y -i 'dashboard|operator|registry-rhel|udi'
 
 To compare latest image in Quay to latest CSV in bundle in latest IIB:
   TAG=$PROD_VER; \\

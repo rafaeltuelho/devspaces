@@ -63,8 +63,8 @@ jobs:
         BUILDER=docker ./build.sh --tag pr-check --offline
         EXPORTED_FOLDER=/var/www/html/v3
         ls -la output/
-        docker run --rm --entrypoint=sh quay.io/devspaces/pluginregistry-rhel8:pr-check -c "ls -la ${EXPORTED_FOLDER}"
-        docker create --name pluginRegistry quay.io/devspaces/pluginregistry-rhel8:pr-check sh
+        docker run --rm --entrypoint=sh quay.io/redhat_na_ssa/pluginregistry-rhel8:pr-check -c "ls -la ${EXPORTED_FOLDER}"
+        docker create --name pluginRegistry quay.io/redhat_na_ssa/pluginregistry-rhel8:pr-check sh
         mkdir root-dir
         docker cp pluginRegistry:${EXPORTED_FOLDER} root-dir/v3
         docker rm -f pluginRegistry

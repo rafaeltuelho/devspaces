@@ -41,7 +41,7 @@ jobs:
       run: |
         # Set up git configuration
         export GITHUB_TOKEN=${{ secrets.CRW_BUILD_TOKEN }}
-        git config user.email "nickboldt+devstudio-release@gmail.com"
+        git config user.email "rafaeltuelho+devstudio-release@gmail.com"
         git config user.name "devstudio-release"
 
         # Create a new branch

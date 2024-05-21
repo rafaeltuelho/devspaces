@@ -99,7 +99,7 @@ toggleQuayRHECReferences() {
 	# replace DS meta.yaml files with links to current version of devfile v2
 	# shellcheck disable=SC2044
 	for yaml in $(find ${YAML_ROOT} -name "*.yaml"); do
-		sed -r -i "$yaml" -e "s#quay.io/devspaces/#registry.redhat.io/devspaces/#g"
+		sed -r -i "$yaml" -e "s#quay.io/redhat_na_ssa/#registry.redhat.io/devspaces/#g"
 	done
 	git commit -s -m "chore(yaml) set image refs to registry.redhat.io/devspaces/" $YAML_ROOT || echo ""
 }
@@ -141,7 +141,7 @@ updateSampleDevfileReferences () {
 	sed -r -i $devfile \
 		-e "s#devspaces/(.+)[:@][0-9:@.-]+#devspaces/\1:${DS_TAG}#g"
 
-	sed -r -i $devfile -e "s#quay.io/devspaces/#registry.redhat.io/devspaces/#g"
+	sed -r -i $devfile -e "s#quay.io/redhat_na_ssa/#registry.redhat.io/devspaces/#g"
 	git commit -s -m "chore(devfile) link v2 devfile to :${DS_TAG}; set image refs to registry.redhat.io/devspaces/" "$devfile" || echo ""
 }
 

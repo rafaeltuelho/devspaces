@@ -13,7 +13,7 @@ on:
   push:
     branches:
       - 'devspaces-[0-9].[0-9]+-rhel-8'
-      - devspaces-3-rhel-8
+      - devspaces-3-rhel-8-custom
     paths:
       - 'dependencies/che-plugin-registry/**'
 
@@ -70,11 +70,11 @@ jobs:
              version=$(cat dependencies/VERSION)
           fi
           # get arches and swap amd64 -> x86_64 so we have the uname -m value, not the quay arch name
-          docker manifest inspect quay.io/devspaces/pluginregistry-rhel8:"$version" | jq -r '.manifests[] | .platform.architecture' | sed -r -e "s#amd64#x86_64#g" \
+          docker manifest inspect quay.io/redhat_na_ssa/pluginregistry-rhel8:"$version" | jq -r '.manifests[] | .platform.architecture' | sed -r -e "s#amd64#x86_64#g" \
           > /tmp/devspaces-plugin-registry/architectures.json
           for arch in $(cat /tmp/devspaces-plugin-registry/architectures.json); do
-            docker pull quay.io/devspaces/pluginregistry-rhel8:"$version" --platform="$arch"
-            docker create --platform linux/"$arch" --name pluginRegistry quay.io/devspaces/pluginregistry-rhel8:"$version" sh
+            docker pull quay.io/redhat_na_ssa/pluginregistry-rhel8:"$version" --platform="$arch"
+            docker create --platform linux/"$arch" --name pluginRegistry quay.io/redhat_na_ssa/pluginregistry-rhel8:"$version" sh
             mkdir -p "$BUILD_DIR"/"$arch"/v3
             docker cp pluginRegistry:/var/www/html/v3 "$BUILD_DIR"/"$arch"
             docker rm -f pluginRegistry

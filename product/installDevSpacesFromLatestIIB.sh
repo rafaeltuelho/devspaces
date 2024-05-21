@@ -15,7 +15,7 @@
 # 2. You an active kerberos token (kinit <username>@IPA.REDHAT.COM) [if fetching latest IIB from RH's datagrepper or resultsdb services]
 # 3. You've set up a Brew registry token [if pulling images from brew.registry.redhat]
 # 
-# However, if you're installing the latest images from quay.io/devspaces, you don't need the above RH internal requirements.
+# However, if you're installing the latest images from quay.io/redhat_na_ssa, you don't need the above RH internal requirements.
 # You do need to be logged into an OpenShift cluster, but you can optionally pass your cluster and kubeadmin password via commandline.
 #
 # Requires: oc, jq, curl
@@ -63,7 +63,7 @@ This script will
 4. Create 5 dummy OpenShift users from user1 to user5
 5. Create a CheCluster to install Dev Spaces
 
-Quick usage, to install Dev Spaces from quay.io/devspaces/iib as a Technology Preview from fast channel:
+Quick usage, to install Dev Spaces from quay.io/redhat_na_ssa/iib as a Technology Preview from fast channel:
 
 Install 3.2           : $0 -t 3.2 --quay
 Install 3.y (stable)  : $0 --latest
@@ -100,14 +100,14 @@ Options:
   --iib-ds <IIB_URL>  : Dev Spaces IIB from which to install; default: computed from DS version; options:
                       : * registry-proxy.engineering.redhat.com/rh-osbs/iib:987654 [RH internal],
                       : * brew.registry.redhat.io/rh-osbs/iib:987654 [RH public, auth required], or
-                      : * quay.io/devspaces/iib:3.7-v4.13-480383-476121-x86_64 [public], or 
-                      : * quay.io/devspaces/iib:next-v4.12-x86_64 [public]
+                      : * quay.io/redhat_na_ssa/iib:3.7-v4.13-480383-476121-x86_64 [public], or 
+                      : * quay.io/redhat_na_ssa/iib:next-v4.12-x86_64 [public]
 
-  --quay, --fast      : Install from quay.io/devspaces/iib:<DS_VERSION>-v4.yy-<OS_ARCH> (detected OCP version + arch) from fast channel
+  --quay, --fast      : Install from quay.io/redhat_na_ssa/iib:<DS_VERSION>-v4.yy-<OS_ARCH> (detected OCP version + arch) from fast channel
                       : Resolve images from quay.io using ImageContentSourcePolicy
-  --latest            : Install from quay.io/devspaces/iib:latest-v4.yy-<OS_ARCH>, from fast channel, built from stable devspaces-3.y-rhel-8 branch
+  --latest            : Install from quay.io/redhat_na_ssa/iib:latest-v4.yy-<OS_ARCH>, from fast channel, built from stable devspaces-3.y-rhel-8 branch
                       : Resolve images from quay.io using ImageContentSourcePolicy
-  --next              : Install from quay.io/devspaces/iib:next-v4.yy-<OS_ARCH>, from fast channel, built from CI devspaces-3-rhel-8 branch
+  --next              : Install from quay.io/redhat_na_ssa/iib:next-v4.yy-<OS_ARCH>, from fast channel, built from CI devspaces-3-rhel-8 branch
                       : Resolve images from quay.io using ImageContentSourcePolicy
                       : If --next, --disable-default-sources is implied so that we ONLY install DWO from quay, not RH Ecosystem Catalog
 
@@ -238,10 +238,10 @@ while [[ "$#" -gt 0 ]]; do
           DSC=$(command -v dsc)
         fi
       fi; shift 1;;
-    '--iib-dwo') IIB_DWO="$2"; if [[ $IIB_DWO == "quay.io/devspaces/iib"* ]]; then CHANNEL_DWO="fast"; ICSP_FLAGs="${ICSP_FLAGs} --icsp quay.io"; fi; shift 1;;
-    '--iib-ds')  IIB_DS="$2";  if [[ $IIB_DS == "quay.io/devspaces/iib"* ]];  then CHANNEL_DS="fast";  ICSP_FLAGs="${ICSP_FLAGs} --icsp quay.io"; fi; shift 1;;
-    '--quay'|'--fast')   IIB_DS="quay.io/devspaces/iib"; CHANNEL_DS="fast"; CHANNEL_DWO="fast"; ICSP_FLAGs="${ICSP_FLAGs} --icsp quay.io";;
-    '--latest'|'--next') IIB_DS="quay.io/devspaces/iib"; CHANNEL_DS="fast"; CHANNEL_DWO="fast"; ICSP_FLAGs="${ICSP_FLAGs} --icsp quay.io"; DS_VERSION="${1//--/}";;
+    '--iib-dwo') IIB_DWO="$2"; if [[ $IIB_DWO == "quay.io/redhat_na_ssa/iib"* ]]; then CHANNEL_DWO="fast"; ICSP_FLAGs="${ICSP_FLAGs} --icsp quay.io"; fi; shift 1;;
+    '--iib-ds')  IIB_DS="$2";  if [[ $IIB_DS == "quay.io/redhat_na_ssa/iib"* ]];  then CHANNEL_DS="fast";  ICSP_FLAGs="${ICSP_FLAGs} --icsp quay.io"; fi; shift 1;;
+    '--quay'|'--fast')   IIB_DS="quay.io/redhat_na_ssa/iib"; CHANNEL_DS="fast"; CHANNEL_DWO="fast"; ICSP_FLAGs="${ICSP_FLAGs} --icsp quay.io";;
+    '--latest'|'--next') IIB_DS="quay.io/redhat_na_ssa/iib"; CHANNEL_DS="fast"; CHANNEL_DWO="fast"; ICSP_FLAGs="${ICSP_FLAGs} --icsp quay.io"; DS_VERSION="${1//--/}";;
     '--disable-default-sources') DISABLE_CATALOGSOURCESFLAG="$1";;
     '-cs'|'--enable-default-sources') ENABLE_CATALOGSOURCES="true";;
     '--brew') ICSP_FLAGs="${ICSP_FLAGs} --icsp brew.registry.redhat.io";;
@@ -313,7 +313,7 @@ if [[ ! $IIB_DS ]]; then
     exit 1
   fi
 else
-  if [[ $IIB_DS == "quay.io/devspaces/iib" ]]; then 
+  if [[ $IIB_DS == "quay.io/redhat_na_ssa/iib" ]]; then 
     IIB_DS="${IIB_DS}:${DS_VERSION}-v${OPENSHIFT_VER}-${OPENSHIFT_ARCH}"
   fi
   echo "[INFO] Requested Dev Spaces IIB $IIB_DS - installing from $CHANNEL_DS channel..."

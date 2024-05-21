@@ -139,7 +139,7 @@ Usage:
   $0 -b ${DWNSTM_BRANCH} --nvr --log                       | check images in brew; output NVRs can be copied to Errata; show Brew builds/logs
   $0 -b ${DWNSTM_BRANCH} --errata $DEFAULT_ERRATA_NUM                   | check images in brew; output NVRs; push builds to Errata (implies --nvr --hide)
 
-  $0 -b ${DWNSTM_BRANCH} --quay --tag \"${DS_VERSION}-\" --hide        | use default quay.io/devspaces images, for tag ${DS_VERSION}-; show nothing if unmatched tag
+  $0 -b ${DWNSTM_BRANCH} --quay --tag \"${DS_VERSION}-\" --hide        | use default quay.io/redhat_na_ssa images, for tag ${DS_VERSION}-; show nothing if unmatched tag
   $0 -b ${DWNSTM_BRANCH} --osbs                            | check images in OSBS ( registry-proxy.engineering.redhat.com/rh-osbs )
   $0 -b ${DWNSTM_BRANCH} --osbs --pushtoquay='${DS_VERSION} ${latestNext}'  | pull images from OSBS, push ${DS_VERSION}-z tag + 2 extras to quay
   $0 -b ${DWNSTM_BRANCH} --stage --sort                    | use default list of DS images in RHEC Stage, sorted alphabetically
@@ -447,7 +447,7 @@ for URLfrag in $CONTAINERS; do
 			# special case for the operator and bundle images, which don't follow the same pattern in osbs as quay
 			if [[ ${QUAYDEST} == "operator-bundle" ]]; then QUAYDEST="devspaces-operator-bundle"; fi
 			if [[ ${QUAYDEST} == "operator" ]];        then QUAYDEST="devspaces-rhel8-operator"; fi
-			QUAYDEST="quay.io/devspaces/${QUAYDEST}"
+			QUAYDEST="quay.io/redhat_na_ssa/${QUAYDEST}"
 
 			if [[ $(skopeo --insecure-policy inspect docker://${QUAYDEST}:${LATESTTAG} 2>&1) == *"Error"* ]] || [[ ${PUSHTOQUAYFORCE} -eq 1 ]]; then 
 				# CRW-1914 copy latest tag ONLY if it doesn't already exist on the registry, to prevent re-timestamping it and making it look new

@@ -329,7 +329,7 @@ updatePluginRegistry() {
     for yaml in $("$SCRIPT_DIR"/list_che_yaml.sh "$YAML_ROOT"); do
         sed -r \
             -e "s#(.*image: (['\"]*)(registry.redhat.io|quay.io)/devspaces/.*:)[0-9.]+(['\"]*)#\1${DEVSPACES_VERSION}\2#g" \
-            -e "s#quay.io/devspaces/#registry.redhat.io/devspaces/#g" \
+            -e "s#quay.io/redhat_na_ssa/#registry.redhat.io/devspaces/#g" \
             -e "s|# Copyright.*|# Copyright (c) 2018-$(date +%Y) Red Hat, Inc.|g" \
             -i "${yaml}"
     done
