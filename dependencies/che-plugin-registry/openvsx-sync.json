@@ -210,5 +210,9 @@
   {
     "id": "Continue.continue",
     "version": "0.8.25"
+  },
+  {
+    "id": "cnshenj.vscode-task-manager",
+    "version": "1.0.0"
   }
 ]
