@@ -9,13 +9,13 @@
 
 name: Plugin Registry - GH Pages - Publish Registry Content
 
-on:
-  push:
-    branches:
-      - 'devspaces-[0-9].[0-9]+-rhel-8'
-      - devspaces-3-rhel-8-custom
-    paths:
-      - 'dependencies/che-plugin-registry/**'
+# on:
+#   push:
+#     branches:
+#       - 'devspaces-[0-9].[0-9]+-rhel-8'
+#       - devspaces-3-rhel-8-custom
+#     paths:
+#       - 'dependencies/che-plugin-registry/**'
 
   # allow manual trigger of action in case things are stale
   workflow_dispatch:
