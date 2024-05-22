@@ -22,7 +22,8 @@ components:
           targetPort: 5432
   - name: images
     volume:
-      size: 120Gi
+      ephemeral: true
+      # size: 120Gi
 commands:
   - id: podman-login
     exec:
